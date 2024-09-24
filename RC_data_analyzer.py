@@ -15,9 +15,12 @@ if uploaded_file is not None:
     # Combine First Name and Last Name to get Full Name
     df['Full Name'] = df['First Name'] + ' ' + df['Last Name']
 
-    # Separate Attendees (checked in) and Non-attendees (registered but did not check in)
-    checked_in = df[df['Attendee Status'] == 'Checked In']  # People who attended
-    only_registered = df[df['Attendee Status'] == 'Attending']  # People who registered but did not attend
+    # Normalize the 'Attendee Status' column to lowercase to ignore case sensitivity
+    df['Attendee Status'] = df['Attendee Status'].str.lower()
+
+    # Separate Attendees (Checked In) and Non-attendees (Registered but did not check in)
+    checked_in = df[df['Attendee Status'] == 'checked in']  # People who attended
+    only_registered = df[df['Attendee Status'] == 'attending']  # People who registered but did not attend
     
     # Display checked-in attendees
     st.subheader("List of Attendees (Checked In)")
